@@ -2,7 +2,7 @@ package co.uniquindio.edu.co.moduloriesgo;
 
 import java.io.IOException;
 
-import co.uniquindio.edu.co.moduloriesgo.controller.LoginController;
+import co.uniquindio.edu.co.moduloriesgo.controller.GerenteController;
 import co.uniquindio.edu.co.moduloriesgo.controller.ModelFactoryController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ public class Aplicacion extends Application {
 
 	private Stage primaryStage;
 
-	LoginController logIn;
+	GerenteController gerenteController;
 
 
 	ModelFactoryController modelFactoryController = ModelFactoryController.getInstance();
@@ -28,7 +28,7 @@ public class Aplicacion extends Application {
 		try {
 			this.primaryStage = primaryStage;
 			this.primaryStage.setTitle("Fakebook marketplace");
-			showLogin();
+			showGerente();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -41,21 +41,21 @@ public class Aplicacion extends Application {
 	/**
 	 * carga la vista del loggin
 	 */
-	public void showLogin() {
+	public void showGerente() {
 		
 
 		try {
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Aplicacion.class.getResource("view/Login.fxml"));
+			loader.setLocation(Aplicacion.class.getResource("view/GerenteView.fxml"));
 
 			BorderPane rootLayout = (BorderPane) loader.load();
-			logIn = loader.getController();
+			gerenteController = loader.getController();
 		
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Inicio de sesion");
-			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/iconMarketplace.png")));
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/1681235545958.png")));
 
 			/*
 			 * "C://Users//kssm1//OneDrive//Documentos//GitHub//Marketplace//info//iconMarketplace.png
