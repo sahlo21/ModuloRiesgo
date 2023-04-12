@@ -55,7 +55,7 @@ public class Aplicacion extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Inicio de sesion");
-			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/1681235545958.png")));
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/1681237779354.png")));
 
 			/*
 			 * "C://Users//kssm1//OneDrive//Documentos//GitHub//Marketplace//info//iconMarketplace.png
