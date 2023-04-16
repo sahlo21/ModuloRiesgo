@@ -1,7 +1,9 @@
 package co.uniquindio.edu.co.moduloriesgo.model;
 
-public enum Modulo {
-	
+import java.io.Serializable;
+
+public enum Modulo implements Serializable{
+
 	planificacion("Modulo de planificacion"),
 	colaboracion("Modulo de colaboracion"),
 	facturacionYContabilidad("Modulo de facturacion y contabilidad"),
@@ -9,22 +11,22 @@ public enum Modulo {
 	gestionRecursos("Modulo de gestion de recursos"),
 	gestionRiesgos("Modulo de gestion de riesgos"),
 	seguridad("Modulo de seguridad");
-	
+
 	private String nombre="";
-	
+
 	Modulo (String nombre){
 		this.nombre = nombre;
-		
+
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	
-	
+
+
 
 }
 
-		
+
 

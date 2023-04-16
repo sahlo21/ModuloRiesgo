@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -21,7 +18,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1067.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.edu.co.moduloriesgo.controller.GerenteController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1067.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.edu.co.moduloriesgo.controller.GerenteController">
    <right>
       <AnchorPane prefHeight="688.0" prefWidth="99.0" style="-fx-background-color: #0080ff;" BorderPane.alignment="CENTER" />
    </right>
@@ -51,16 +48,25 @@
                                                                         <Button layoutX="209.0" layoutY="227.0" mnemonicParsing="false" onAction="#nuevoRiesgoEvent" prefHeight="34.0" prefWidth="116.0" style="-fx-background-color: #0080ff;" text="Nuevo" textFill="WHITE">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
-                                                                           </font></Button>
+                                                                           </font>
+                                                                           <cursor>
+                                                                              <Cursor fx:constant="HAND" />
+                                                                           </cursor></Button>
                                                                         <TextField fx:id="txtDescripcion" alignment="TOP_LEFT" layoutX="131.0" layoutY="122.0" prefHeight="78.0" prefWidth="240.0" promptText="Ingrese la descripcion del riesgo" style="-fx-border-color: #0080ff; -fx-border-width: 2px 2px; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;" />
                                                                         <Button layoutX="479.0" layoutY="226.0" mnemonicParsing="false" onAction="#actualizarRiesgoEvent" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: #0080ff;" text="Actualizar" textFill="WHITE">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
-                                                                           </font></Button>
+                                                                           </font>
+                                                                           <cursor>
+                                                                              <Cursor fx:constant="HAND" />
+                                                                           </cursor></Button>
                                                                         <Button layoutX="344.0" layoutY="226.0" mnemonicParsing="false" onAction="#agregarRiesgoEvent" prefHeight="35.0" prefWidth="116.0" style="-fx-background-color: #0080ff;" text="Agregar" textFill="WHITE">
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
-                                                                           </font></Button>
+                                                                           </font>
+                                                                           <cursor>
+                                                                              <Cursor fx:constant="HAND" />
+                                                                           </cursor></Button>
                                                                         <Separator layoutX="17.0" layoutY="210.0" prefHeight="0.0" prefWidth="770.0" />
                                                                         <TextField fx:id="txtNombreRiesgo" alignment="CENTER" layoutX="131.0" layoutY="87.0" prefHeight="29.0" prefWidth="240.0" promptText="Ingrese nombre del riesgo" style="-fx-border-color: #0080ff; -fx-border-width: 2px 2px; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;" />
                                                                         <Label layoutX="319.0" layoutY="17.0" text="Información del riesgo" textFill="#0080ff">
@@ -79,8 +85,14 @@
                                                                            </font>
                                                                         </Label>
                                                                         <Separator layoutX="24.0" layoutY="49.0" prefHeight="6.0" prefWidth="748.0" style="-fx-background-color: #0080ff;" />
-                                                                        <ComboBox fx:id="cbCategoria" layoutX="439.0" layoutY="148.0" prefHeight="27.0" prefWidth="317.0" promptText="Seleccione el tipo de riesgo" style="-fx-background-color: #0080ff;" />
-                                                                        <ComboBox fx:id="cbModuloRiesgo" layoutX="439.0" layoutY="102.0" prefHeight="27.0" prefWidth="316.0" promptText="Seleccione el modulo correspondiente" style="-fx-background-color: #0080ff;" />
+                                                                        <ComboBox fx:id="cbCategoria" layoutX="439.0" layoutY="148.0" prefHeight="27.0" prefWidth="317.0" promptText="Seleccione el tipo de riesgo" style="-fx-background-color: #0080ff;">
+                                                                           <cursor>
+                                                                              <Cursor fx:constant="HAND" />
+                                                                           </cursor></ComboBox>
+                                                                        <ComboBox fx:id="cbModuloRiesgo" layoutX="439.0" layoutY="102.0" prefHeight="27.0" prefWidth="316.0" promptText="Seleccione el modulo correspondiente" style="-fx-background-color: #0080ff;">
+                                                                           <cursor>
+                                                                              <Cursor fx:constant="HAND" />
+                                                                           </cursor></ComboBox>
                                                                      </children>
                                                                   </AnchorPane>
                                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="963.0">
@@ -98,6 +110,9 @@
                                                                            <font>
                                                                               <Font name="System Bold" size="14.0" />
                                                                            </font>
+                                                                           <cursor>
+                                                                              <Cursor fx:constant="HAND" />
+                                                                           </cursor>
                                                                         </Button>
                                                                      </children>
                                                                   </AnchorPane>
@@ -134,6 +149,9 @@
                <font>
                   <Font name="Tahoma Bold" size="12.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Label fx:id="lblHora" layoutX="22.0" layoutY="326.0" prefHeight="17.0" prefWidth="135.0" text="Hora:" textFill="#0080ff">
                <font>
