@@ -14,6 +14,7 @@ public class Riesgo implements Serializable{
 	String descripcion;
 	int identificador;
 	String fechaCreacion;
+	boolean estadoRevision;
 
 	public Riesgo(String nombre, Categoria categoria, Modulo modulo, String descripcion, int identificador, String fechaCreacion) {
 		super();

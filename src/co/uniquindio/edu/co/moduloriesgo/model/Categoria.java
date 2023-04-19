@@ -7,7 +7,7 @@ public enum Categoria implements Serializable{
 	Seguridad,
 	Financiero,
 	Ambiental,
-	Fúico,
-	QuúŠico,
+	Fisico,
+	Quimico,
 
 }

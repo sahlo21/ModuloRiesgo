@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import co.uniquindio.edu.co.moduloriesgo.apigmail.EmailSender;
 import co.uniquindio.edu.co.moduloriesgo.model.Categoria;
 import co.uniquindio.edu.co.moduloriesgo.model.Modulo;
 import co.uniquindio.edu.co.moduloriesgo.model.Riesgo;
@@ -145,11 +146,17 @@ public class GerenteController implements Initializable{
 		tableVendedores.setItems(listaRiesgosData);
 	}
 
-
+	private void enviarEmail(String correo, String asunto, String cuerpo){
+		EmailSender sender = new EmailSender(correo, asunto, cuerpo);
+		Thread hilo = new Thread(sender);
+		hilo.start();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+//		EmailSender.enviarConGMail("hospondres23@gmail.com", "Prueba", "Si ves esto es que funciono");
+
 		try {
 			listaRiesgos = (ArrayList<Riesgo>) ArchivoUtil.cargarRecursoSerializado("src/co/uniquindio/edu/co/moduloriesgo/localsources/listaRiesgos");
 		} catch ( Exception e) {
@@ -164,16 +171,19 @@ public class GerenteController implements Initializable{
 		try{
 		tableVendedores.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) ->{
     		riesgoSeleccionado = newSelection;
-    		txtDescripcion.setText(riesgoSeleccionado.getDescripcion());
-    		txtNombreRiesgo.setText(riesgoSeleccionado.getNombre());
-    		cbCategoria.setValue(riesgoSeleccionado.getCategoria());
-    		cbModuloRiesgo.setValue(riesgoSeleccionado.getModulo());
+    		if(riesgoSeleccionado != null){
+    			txtDescripcion.setText(riesgoSeleccionado.getDescripcion());
+        		txtNombreRiesgo.setText(riesgoSeleccionado.getNombre());
+        		cbCategoria.setValue(riesgoSeleccionado.getCategoria());
+        		cbModuloRiesgo.setValue(riesgoSeleccionado.getModulo());
+    		}
+
     	});
 		}catch(NullPointerException e){
 		}
 
-		cbCategoria.getItems().addAll(Categoria.Ambiental, Categoria.Financiero, Categoria.F˙êico,
-				Categoria.Laboral, Categoria.Qu˙äico, Categoria.Seguridad);
+		cbCategoria.getItems().addAll(Categoria.Ambiental, Categoria.Financiero, Categoria.Fisico,
+				Categoria.Laboral, Categoria.Quimico, Categoria.Seguridad);
 		cbModuloRiesgo.getItems().addAll(Modulo.colaboracion, Modulo.facturacionYContabilidad, Modulo.gestionRecursos, Modulo.gestionRiesgos, Modulo.planificacion, Modulo.seguimiento, Modulo.seguridad);
 
 	}
