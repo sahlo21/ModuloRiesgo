@@ -144,7 +144,7 @@
                                                                <items>
                                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="963.0">
                                                                      <children>
-                                                                        <Label layoutX="319.0" layoutY="17.0" text="Notifiacion de riesgos" textFill="#0080ff">
+                                                                        <Label layoutX="319.0" layoutY="17.0" text="Notificación de riesgos" textFill="#0080ff">
                                                                            <font>
                                                                               <Font name="Tahoma Bold" size="14.0" />
                                                                            </font>
