@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.edu.co.moduloriesgo.controller.DocumentoController">
+   <left>
+      <AnchorPane prefHeight="455.0" prefWidth="46.0" style="-fx-background-color: #0080ff;" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <AnchorPane prefHeight="455.0" prefWidth="46.0" style="-fx-background-color: #0080ff;" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <AnchorPane prefHeight="539.0" prefWidth="745.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tableDocuments" layoutX="16.0" layoutY="14.0" prefHeight="78.0" prefWidth="713.0" style="-fx-border-color: #0080ff; -fx-border-width: 3px 3px;">
+               <columns>
+                  <TableColumn fx:id="columnNombreDocumento" prefWidth="709.0" text="Documento" />
+               </columns>
+            </TableView>
+            <ImageView fx:id="imgViewDocumento" fitHeight="429.0" fitWidth="708.0" layoutX="16.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

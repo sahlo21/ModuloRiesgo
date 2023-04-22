@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.edu.co.moduloriesgo.controller.PlanRiesgoController">
+   <left>
+      <AnchorPane prefHeight="455.0" prefWidth="46.0" style="-fx-background-color: #0080ff;" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <AnchorPane prefHeight="455.0" prefWidth="46.0" style="-fx-background-color: #0080ff;" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <AnchorPane prefHeight="539.0" prefWidth="745.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="588.0" layoutY="396.0" mnemonicParsing="false" onAction="#generarPlanEvent" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #0080ff;" text="Generar plan" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <DatePicker fx:id="dateInicio" layoutX="589.0" layoutY="207.0" prefHeight="25.0" prefWidth="133.0" promptText="Fecha inicio " />
+            <TextArea fx:id="txtPlan" layoutX="33.0" layoutY="61.0" prefHeight="462.0" prefWidth="528.0" style="-fx-border-color: #0080ff; -fx-border-width: 2px 2px;" />
+            <Label layoutX="19.0" layoutY="21.0" text="Ingrese las acciones a realizar:" textFill="#0080ff">
+               <font>
+                  <Font name="Tahoma Bold" size="14.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dateFin" layoutX="589.0" layoutY="254.0" prefHeight="25.0" prefWidth="133.0" promptText="Fecha finalizacion" />
+            <Label layoutX="590.0" layoutY="116.0" text="Tiempo estimado" textFill="#0080ff">
+               <font>
+                  <Font name="Tahoma Bold" size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="603.0" layoutY="160.0" prefHeight="7.0" prefWidth="95.0" style="-fx-background-color: #0080ff;" />
+            <Separator layoutX="608.0" layoutY="320.0" prefHeight="7.0" prefWidth="95.0" style="-fx-background-color: #0080ff;" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -76,6 +76,89 @@ public class GerenteController implements Initializable{
 
 	@FXML
 	private TextField txtDescripcion;
+	@FXML
+    private TableColumn<?, ?> columnEstadoNotificacion;
+
+   
+
+    @FXML
+    private TableColumn<?, ?> columnNombreNotificacion;
+
+  
+    @FXML
+    private TableColumn<?, ?> columnModuloNotificacion;
+
+    @FXML
+    private TableColumn<?, ?> columnCedula;
+
+    @FXML
+    private TableView<?> tableRIesgosNotificacion;
+
+    @FXML
+    private TableColumn<?, ?> columnEstadoEmpleado;
+
+  
+
+    @FXML
+    private TableColumn<?, ?> columnEps;
+
+
+    @FXML
+    private TableColumn<?, ?> columnNombreEmpleado;
+
+    @FXML
+    private TableColumn<?, ?> columnCargo;
+
+   
+
+    @FXML
+    private TableColumn<?, ?> columnArl;
+
+    @FXML
+    private TableView<?> tableEmpleados;
+
+
+   
+
+    @FXML
+    private TableColumn<?, ?> columnCategoriaNotificacion;
+
+  
+
+   
+
+    @FXML
+    void notificarRiesgoEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void realizarChequeoEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void generarPlanEvent(ActionEvent event) {
+
+    }
+
+   
+
+    @FXML
+    void revisarDocumentosEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void habilitarEmpleadoEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deshabilitarEmpleadoEvent(ActionEvent event) {
+
+    }
+
 
 	@FXML
 	void nuevoRiesgoEvent(ActionEvent event) {
