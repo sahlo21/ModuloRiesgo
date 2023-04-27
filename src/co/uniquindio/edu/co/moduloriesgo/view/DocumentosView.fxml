@@ -39,7 +39,11 @@
                   <TableColumn fx:id="columnNombreDocumento" prefWidth="709.0" text="Documento" />
                </columns>
             </TableView>
-            <ImageView fx:id="imgViewDocumento" fitHeight="429.0" fitWidth="708.0" layoutX="16.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+            <ScrollPane layoutX="19.0" layoutY="114.0" prefHeight="414.0" prefWidth="709.0">
+               <content>
+                  <ImageView fitHeight="642.0" fitWidth="696.0" pickOnBounds="true" preserveRatio="true" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
    </center>
