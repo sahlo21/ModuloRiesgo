@@ -1,34 +1,41 @@
 package co.uniquindio.edu.co.moduloriesgo.model;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
 
-public class PlanRiesgo {
+public class PlanRiesgo implements Serializable{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	String solucion;
-	int idRiesgo;
-	Date fecha;
-	public PlanRiesgo(String solucion, int idRiesgo, Date fecha) {
-		super();
-		this.solucion = solucion;
-		this.idRiesgo = idRiesgo;
-		this.fecha = fecha;
-	}
+	LocalDate fechaInicio;
+	LocalDate fechaFinal;
 	public String getSolucion() {
 		return solucion;
 	}
 	public void setSolucion(String solucion) {
 		this.solucion = solucion;
 	}
-	public int getIdRiesgo() {
-		return idRiesgo;
+	public LocalDate getFechaInicio() {
+		return fechaInicio;
 	}
-	public void setIdRiesgo(int idRiesgo) {
-		this.idRiesgo = idRiesgo;
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
-	public Date getFecha() {
-		return fecha;
+	public LocalDate getFechaFinal() {
+		return fechaFinal;
 	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFechaFinal(LocalDate fechaFinal) {
+		this.fechaFinal = fechaFinal;
 	}
+	public PlanRiesgo(String solucion, LocalDate fechaInicio, LocalDate fechaFinal) {
+		super();
+		this.solucion = solucion;
+		this.fechaInicio = fechaInicio;
+		this.fechaFinal = fechaFinal;
+	}
+
+
 
 }

@@ -1,8 +1,6 @@
 package co.uniquindio.edu.co.moduloriesgo.controller;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.time.Clock;
 import java.time.LocalDate;
@@ -12,14 +10,19 @@ import java.util.ResourceBundle;
 
 import co.uniquindio.edu.co.moduloriesgo.apigmail.EmailSender;
 import co.uniquindio.edu.co.moduloriesgo.model.Categoria;
+import co.uniquindio.edu.co.moduloriesgo.model.Empleado;
 import co.uniquindio.edu.co.moduloriesgo.model.Modulo;
+import co.uniquindio.edu.co.moduloriesgo.model.PlanRiesgo;
 import co.uniquindio.edu.co.moduloriesgo.model.Riesgo;
 import co.uniquindio.edu.co.moduloriesgo.persistencia.ArchivoUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -27,13 +30,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class GerenteController implements Initializable{
 	private static Stage stg;
 	ArrayList<Riesgo> listaRiesgos = new ArrayList<>();
+	ArrayList<Empleado> listaEmpleados = new ArrayList<>();
+	Empleado empleadoSeleccionado;
 	Riesgo riesgoSeleccionado;
+	Riesgo riesgoNotificacionSeleccionado;
 	ObservableList<Riesgo> listaRiesgosData = FXCollections.observableArrayList();
+	ObservableList<Empleado> listaEmpleadosData = FXCollections.observableArrayList();
+	FXMLLoader fxmlLoader;
+
 
 	@FXML
 	private ComboBox<Categoria> cbCategoria;
@@ -77,85 +87,149 @@ public class GerenteController implements Initializable{
 	@FXML
 	private TextField txtDescripcion;
 	@FXML
-    private TableColumn<?, ?> columnEstadoNotificacion;
+    private TableColumn<Riesgo, String> columnEstadoNotificacion;
 
-   
-
-    @FXML
-    private TableColumn<?, ?> columnNombreNotificacion;
-
-  
-    @FXML
-    private TableColumn<?, ?> columnModuloNotificacion;
-
-    @FXML
-    private TableColumn<?, ?> columnCedula;
-
-    @FXML
-    private TableView<?> tableRIesgosNotificacion;
-
-    @FXML
-    private TableColumn<?, ?> columnEstadoEmpleado;
-
-  
-
-    @FXML
-    private TableColumn<?, ?> columnEps;
 
 
     @FXML
-    private TableColumn<?, ?> columnNombreEmpleado;
+    private TableColumn<Riesgo, String> columnNombreNotificacion;
+
 
     @FXML
-    private TableColumn<?, ?> columnCargo;
-
-   
+    private TableColumn<Riesgo, String> columnModuloNotificacion;
 
     @FXML
-    private TableColumn<?, ?> columnArl;
+    private TableColumn<Empleado, String> columnCedula;
 
     @FXML
-    private TableView<?> tableEmpleados;
-
-
-   
+    private TableView<Riesgo> tableRIesgosNotificacion;
 
     @FXML
-    private TableColumn<?, ?> columnCategoriaNotificacion;
+    private TableColumn<Empleado, String> columnEstadoEmpleado;
 
-  
 
-   
+
+    @FXML
+    private TableColumn<Empleado, String> columnEps;
+
+
+    @FXML
+    private TableColumn<Empleado, String> columnNombreEmpleado;
+
+    @FXML
+    private TableColumn<Empleado, String> columnCargo;
+
+
+
+    @FXML
+    private TableColumn<Empleado, String> columnArl;
+
+    @FXML
+    private TableView<Empleado> tableEmpleados;
+
+
+
+
+    @FXML
+    private TableColumn<Riesgo, String> columnCategoriaNotificacion;
+
 
     @FXML
     void notificarRiesgoEvent(ActionEvent event) {
+    	if(riesgoNotificacionSeleccionado!=null && riesgoNotificacionSeleccionado.getPlanRiesgo()!=null){
+    		enviarEmail("andresf.garciat@uqvirtual.edu.co", "Notificacion de riesgos", LocalDate.now(Clock.systemDefaultZone())+"\nGerente.\nPara: "+riesgoNotificacionSeleccionado.getModulo()
+    		+"\nRiesgo: "+riesgoNotificacionSeleccionado.getNombre()+" - Numero: "+riesgoNotificacionSeleccionado.getIdentificador()+"\nCategoria: "+riesgoNotificacionSeleccionado.getCategoria()+
+    		"\n - Fecha: "+riesgoNotificacionSeleccionado.getFechaCreacion()+"\nDescripcion: "+riesgoNotificacionSeleccionado.getDescripcion()+
+    		"\n\nPLAN DE RIESGO\nFecha inicio: "+riesgoNotificacionSeleccionado.getPlanRiesgo().getFechaInicio()+" - Fecha final: "+riesgoNotificacionSeleccionado.getPlanRiesgo().getFechaFinal()+
+    		"\n"+riesgoNotificacionSeleccionado.getPlanRiesgo().getSolucion());
+
+    		for (int i = 0; i < listaRiesgos.size(); i++) {
+    			if(riesgoNotificacionSeleccionado.getIdentificador()==listaRiesgos.get(i).getIdentificador()){
+    				listaRiesgos.get(i).setEstado("Completo");
+    			}
+    		}
+
+    		try {
+				ArchivoUtil.salvarRecursoSerializado("src/co/uniquindio/edu/co/moduloriesgo/localsources/listaRiesgos", listaRiesgos);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Hubo un error en el guardado del archivo local");
+			}
+    		actualizarDataNotificaciones();
+    		actualizarDataRiesgos();
+    	}
+
+    }
+
+
+
+    @FXML
+    void realizarChequeoEvent(ActionEvent event) throws IOException {
+    	cambiarVentana("/co/uniquindio/edu/co/moduloriesgo/view/ChequeoView.fxml", "Chequeo");
+
 
     }
 
     @FXML
-    void realizarChequeoEvent(ActionEvent event) {
+    void generarPlanEvent(ActionEvent event) throws IOException {
+    	cambiarVentanaYEsperar("/co/uniquindio/edu/co/moduloriesgo/view/PlanRiesgo.fxml", "Plan de riesgo");
+    	PlanRiesgoController controller = fxmlLoader.getController();
+    	if(!controller.getTxtPlan().getText().isEmpty()&&controller.getDateFin().getValue()!=null&&controller.getDateInicio().getValue()!=null){
+    		for (int i = 0; i < listaRiesgos.size(); i++) {
+    			if(riesgoNotificacionSeleccionado.getIdentificador()==listaRiesgos.get(i).getIdentificador()){
+    				PlanRiesgo plan = new PlanRiesgo(controller.getTxtPlan().getText(), controller.getDateInicio().getValue(), controller.getDateFin().getValue());
+    				listaRiesgos.get(i).setPlanRiesgo(plan);
+    			}
+    		}
+    		for (int i = 0; i < listaRiesgos.size(); i++) {
+    			if(riesgoNotificacionSeleccionado.getIdentificador()==listaRiesgos.get(i).getIdentificador()){
+    				listaRiesgos.get(i).setEstado("Revisado");
+    			}
+    		}
+
+    		try {
+				ArchivoUtil.salvarRecursoSerializado("src/co/uniquindio/edu/co/moduloriesgo/localsources/listaRiesgos", listaRiesgos);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Hubo un error en el guardado del archivo local");
+			}
+    		actualizarDataNotificaciones();
+    		actualizarDataRiesgos();
+
+    	}
+    }
+
+
+
+    @FXML
+    void revisarDocumentosEvent(ActionEvent event) throws IOException {
+
+    	cambiarVentana("/co/uniquindio/edu/co/moduloriesgo/view/DocumentosView.fxml","Documentos");
+    	DocumentoController controller = fxmlLoader.getController();
+    	controller.inicializarEmpleado(empleadoSeleccionado);
 
     }
 
     @FXML
-    void generarPlanEvent(ActionEvent event) {
-
-    }
-
-   
-
-    @FXML
-    void revisarDocumentosEvent(ActionEvent event) {
-
-    }
-
-    @FXML
-    void habilitarEmpleadoEvent(ActionEvent event) {
-
+    void habilitarEmpleadoEvent(ActionEvent event){
+    	for (int i = 0; i < listaEmpleados.size(); i++) {
+			if(listaEmpleados.get(i).getCedula()==empleadoSeleccionado.getCedula()){
+				listaEmpleados.get(i).setEstado("Habilitado");
+			}
+		}
+    	actualizarEmpleados();
     }
 
     @FXML
     void deshabilitarEmpleadoEvent(ActionEvent event) {
+    	for (int i = 0; i < listaEmpleados.size(); i++) {
+			if(listaEmpleados.get(i).getCedula()==empleadoSeleccionado.getCedula()){
+				listaEmpleados.get(i).setEstado("No habilitado");
+			}
+		}
+    	actualizarEmpleados();
 
     }
 
@@ -170,6 +244,7 @@ public class GerenteController implements Initializable{
 
 	@FXML
 	void actualizarRiesgoEvent(ActionEvent event) {
+
 		for (int i = 0; i < listaRiesgos.size(); i++) {
 			if(listaRiesgos.get(i).getIdentificador() == riesgoSeleccionado.getIdentificador()){
 				listaRiesgos.remove(i);
@@ -177,7 +252,16 @@ public class GerenteController implements Initializable{
 				listaRiesgos.add(nuevoriesgo);
 			}
 		}
+		try {
+			ArchivoUtil.salvarRecursoSerializado("src/co/uniquindio/edu/co/moduloriesgo/localsources/listaRiesgos", listaRiesgos);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Hubo un error en el guardado del archivo local");
+		}
 		actualizarDataRiesgos();
+		actualizarDataNotificaciones();
+
 	}
 
 	@FXML
@@ -195,6 +279,7 @@ public class GerenteController implements Initializable{
 				System.out.println("Hubo un error en el guardado del archivo local");
 			}
 			actualizarDataRiesgos();
+			actualizarDataNotificaciones();
 		}
 
 	}
@@ -202,12 +287,22 @@ public class GerenteController implements Initializable{
 
 	@FXML
 	void eliminarVendedorAction(ActionEvent event) {
+		if(riesgoSeleccionado!=null){
 		for (int i = 0; i < listaRiesgos.size(); i++) {
 			if(listaRiesgos.get(i).getIdentificador() == riesgoSeleccionado.getIdentificador() && riesgoSeleccionado != null){
 				listaRiesgos.remove(i);
 			}
 		}
+		try {
+			ArchivoUtil.salvarRecursoSerializado("src/co/uniquindio/edu/co/moduloriesgo/localsources/listaRiesgos", listaRiesgos);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Hubo un error en el guardado del archivo local");
+		}
 		actualizarDataRiesgos();
+		actualizarDataNotificaciones();
+		}
 	}
 
 	@FXML
@@ -217,6 +312,7 @@ public class GerenteController implements Initializable{
 	}
 
 	private void actualizarDataRiesgos(){
+		listaRiesgosData = FXCollections.observableArrayList();
 		tableVendedores.getItems().clear();
 		for (int i = 0; i < listaRiesgos.size(); i++) {
 			listaRiesgosData.add(listaRiesgos.get(i));
@@ -227,12 +323,66 @@ public class GerenteController implements Initializable{
 		this.columnModulo.setCellValueFactory(new PropertyValueFactory<>("modulo"));
 		this.columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
 		tableVendedores.setItems(listaRiesgosData);
+
 	}
+
+
+	private void actualizarDataNotificaciones() {
+		listaRiesgosData = FXCollections.observableArrayList();
+		tableRIesgosNotificacion.getItems().clear();
+		for (int i = 0; i < listaRiesgos.size(); i++) {
+			listaRiesgosData.add(listaRiesgos.get(i));
+		}
+		this.columnEstadoNotificacion.setCellValueFactory(new PropertyValueFactory<>("estado"));
+		this.columnNombreNotificacion.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+		this.columnCategoriaNotificacion.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+		this.columnModuloNotificacion.setCellValueFactory(new PropertyValueFactory<>("modulo"));
+
+		tableRIesgosNotificacion.setItems(listaRiesgosData);
+
+	}
+
+
 
 	private void enviarEmail(String correo, String asunto, String cuerpo){
 		EmailSender sender = new EmailSender(correo, asunto, cuerpo);
 		Thread hilo = new Thread(sender);
 		hilo.start();
+	}
+
+	private void actualizarEmpleados(){
+		tableEmpleados.getItems().clear();
+		for (int i = 0; i < listaEmpleados.size(); i++) {
+			listaEmpleadosData.add(listaEmpleados.get(i));
+		}
+		this.columnEstadoEmpleado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+		this.columnNombreEmpleado.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+		this.columnCedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
+		this.columnCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
+		this.columnArl.setCellValueFactory(new PropertyValueFactory<>("arl"));
+		this.columnEps.setCellValueFactory(new PropertyValueFactory<>("eps"));
+		tableEmpleados.setItems(listaEmpleadosData);
+	}
+
+	private void cambiarVentana(String fxml, String titulo) throws IOException{
+		fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+    	Parent root1 = (Parent) fxmlLoader.load();
+    	Stage stage = new Stage();
+    	stage.setScene(new Scene(root1));
+    	stage.setTitle(titulo);
+    	stage.getIcons().add(new Image(getClass().getResourceAsStream("/co/uniquindio/edu/co/moduloriesgo/resources/1681237779354.png")));
+		stage.show();
+
+	}
+	private void cambiarVentanaYEsperar(String fxml, String titulo) throws IOException{
+		fxmlLoader = new FXMLLoader(getClass().getResource(fxml));
+    	Parent root1 = (Parent) fxmlLoader.load();
+    	Stage stage = new Stage();
+    	stage.setScene(new Scene(root1));
+    	stage.setTitle(titulo);
+    	stage.getIcons().add(new Image(getClass().getResourceAsStream("/co/uniquindio/edu/co/moduloriesgo/resources/1681237779354.png")));
+		stage.showAndWait();
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -250,7 +400,7 @@ public class GerenteController implements Initializable{
 		lblHora.setText(lblHora.getText() + LocalTime.now());
 
 		actualizarDataRiesgos();
-
+		actualizarDataNotificaciones();
 		try{
 		tableVendedores.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) ->{
     		riesgoSeleccionado = newSelection;
@@ -268,6 +418,38 @@ public class GerenteController implements Initializable{
 		cbCategoria.getItems().addAll(Categoria.Ambiental, Categoria.Financiero, Categoria.Fisico,
 				Categoria.Laboral, Categoria.Quimico, Categoria.Seguridad);
 		cbModuloRiesgo.getItems().addAll(Modulo.colaboracion, Modulo.facturacionYContabilidad, Modulo.gestionRecursos, Modulo.gestionRiesgos, Modulo.planificacion, Modulo.seguimiento, Modulo.seguridad);
+
+		Empleado empleado1 = new Empleado("Sin validar", "Pepe Martinez", "10345", "Programador", "SURA", "SURA");
+		empleado1.setArlpath("C:/Users/"+System.getProperty("user.name")+"/Documents/arlsuraempleado.pdf");
+		empleado1.setEpspath("C:/Users/"+System.getProperty("user.name")+"/Documents/documentoepssura.pdf");
+		Empleado empleado2 = new Empleado("Sin validar", "Juan Valdez", "10311", "Programador", "SURA", "N/A");
+		empleado2.setArlpath("C:/Users/"+System.getProperty("user.name")+"/Documents/arlsuraempleado.pdf");
+		empleado2.setEpspath("");
+		Empleado empleado3 = new Empleado("Sin validar", "Juan Sech", "10011", "Programador", "N/A", "N/A");
+		empleado3.setArlpath("");
+		empleado3.setEpspath("");
+
+		listaEmpleados.add(empleado1);
+		listaEmpleados.add(empleado2);
+		listaEmpleados.add(empleado3);
+		actualizarEmpleados();
+		try{
+			tableEmpleados.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) ->{
+				empleadoSeleccionado = newSelection;
+				if(empleadoSeleccionado!=null){
+		    		System.out.println(empleadoSeleccionado.getNombre());
+				}
+
+	    	});
+			}catch(NullPointerException e){
+			}
+
+		tableRIesgosNotificacion.getSelectionModel().selectedItemProperty().addListener((obs,oldSelection,newSelection) ->{
+			riesgoNotificacionSeleccionado = newSelection;
+    	});
+
+
+
 
 	}
 }

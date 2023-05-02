@@ -15,11 +15,25 @@ public class Riesgo implements Serializable{
 	int identificador;
 	String fechaCreacion;
 	boolean estadoRevision;
+	PlanRiesgo planRiesgo;
 
+
+	public boolean isEstadoRevision() {
+		return estadoRevision;
+	}
+	public void setEstadoRevision(boolean estadoRevision) {
+		this.estadoRevision = estadoRevision;
+	}
+	public PlanRiesgo getPlanRiesgo() {
+		return planRiesgo;
+	}
+	public void setPlanRiesgo(PlanRiesgo planRiesgo) {
+		this.planRiesgo = planRiesgo;
+	}
 	public Riesgo(String nombre, Categoria categoria, Modulo modulo, String descripcion, int identificador, String fechaCreacion) {
 		super();
 		this.nombre = nombre;
-		this.estado = "inactivo";
+		this.estado = "En Revision";
 		this.categoria = categoria;
 		this.modulo = modulo;
 		this.descripcion = descripcion;

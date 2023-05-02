@@ -3,5 +3,14 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="src/co/uniquindio/edu/co/moduloriesgo/apigmail/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/pdfbox-app-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/pdfbox-debugger-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/pdfbox-tools-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/preflight-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/pdfbox-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/fontbox-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/xmpbox-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/preflight-app-2.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Documents/GitHub/ModuloRiesgo/src/co/uniquindio/edu/co/moduloriesgo/resources/debugger-app-2.0.28.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
